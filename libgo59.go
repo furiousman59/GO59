@@ -6,9 +6,8 @@ import (
 	"os/exec"
 	"strings"
 	"math/rand"
-  "time"
-  "path/filepath"
-
+  	"time"
+  	"path/filepath"
 )
 
 // This function takes a string of text as input and returns a new string with any blank or empty lines removed.
@@ -117,4 +116,14 @@ func StringRNG(length int) string {
 // Join("a", "b", "c") -> "a/b/c" AS A EXAMPLE
 func Join(parts ...string) string {
     return filepath.Join(parts...)
+}
+
+// ReadFile reads the contents of a file and returns it as a string.
+// Returns an error if the file cannot be read.
+func Read(filePath string) (string, error) {
+    data, err := os.ReadFile(filePath)
+    if err != nil {
+        return "", err
+    }
+    return string(data), nil
 }
