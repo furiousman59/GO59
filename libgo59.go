@@ -2,6 +2,7 @@ package execShell
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -60,4 +61,17 @@ func ExecShell(command string, suppressOutput bool, args ...string) {
 		// Print the command output, stripped of any blank or empty lines
 		fmt.Println(Strip(string(output)))
 	}
+}
+
+// This function checks if a file exists in the file system.
+// It takes 1 parameter:
+// 1. filename: the name of the file to check for
+// It returns a boolean indicating whether the file exists.
+func FileExists(filename string) bool {
+    // os.Stat() returns information about the file, or an error if the file does not exist
+    // os.IsNotExist() checks if the error returned by os.Stat() indicates that the file does not exist
+    // The ! operator negates the result of os.IsNotExist(), so if the error indicates that the file does not exist, the function returns false
+    // Otherwise, the function returns true
+    _, err := os.Stat(filename)
+    return !os.IsNotExist(err)
 }
