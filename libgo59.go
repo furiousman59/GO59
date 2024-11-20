@@ -8,7 +8,7 @@ import (
 	"math/rand"
   "time"
   "path/filepath"
-
+	"io/ioutil"
 )
 
 // This function takes a string of text as input and returns a new string with any blank or empty lines removed.
@@ -117,4 +117,14 @@ func StringRNG(length int) string {
 // Join("a", "b", "c") -> "a/b/c" AS A EXAMPLE
 func Join(parts ...string) string {
     return filepath.Join(parts...)
+}
+
+// Function to read a file and return its contents as a string
+func Read(filePath string) (string, error) {
+    // Read the file
+    content, err := ioutil.ReadFile(filePath)
+    if err != nil {
+        return "", err
+    }
+    return string(content), nil
 }
