@@ -7,6 +7,8 @@ import (
 	"strings"
 	"math/rand"
   "time"
+  "path/filepath"
+
 )
 
 // This function takes a string of text as input and returns a new string with any blank or empty lines removed.
@@ -109,4 +111,10 @@ func StringRNG(length int) string {
     // Convert the byte array to a string and return it
     // This is the final generated string
     return string(result)
+}
+
+// Simple filepath.Join wrapper I guess, its so simple I won't even explain it. 
+// Join("a", "b", "c") -> "a/b/c" AS A EXAMPLE
+func Join(parts ...string) string {
+    return filepath.Join(parts...)
 }

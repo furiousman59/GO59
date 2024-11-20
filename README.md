@@ -23,16 +23,15 @@ es.ExecShell("command", bool, "args", "arg2", "arg etc")
 
 // Strip a string of blank lines
 es.Strip(string)
-// You'd probally want to use this in conjuction with Println or a var, so 
-// var output = es.Strip(String)
-// fmt.Println(output) 
-// A EXAMPLE
 
 // Check if file or path exist, returns bool 
 es.FileExists(string)
 
 // Generate random (int) long string
 es.StringRNG(int)
+
+// Join paths together
+es.Join("path", "path2, "path_etc")
 ```
 
 ### Thanks readme.so for this readme!!
