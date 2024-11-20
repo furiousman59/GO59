@@ -32,39 +32,43 @@ func Strip(output string) string {
 	return strings.Join(nonEmptyLines, "\n")
 }
 
-// This function runs a shell command with the given arguments and handles any errors.
-// It takes 3 parameters:
-// 1. command: the command to run
-// 2. suppressOutput: a boolean indicating whether to suppress the output of the command
-// 3. args: a variable number of arguments to pass to the command
-func ExecShell(command string, suppressOutput bool, args ...string) {
-	// Create a new command to run
-	cmd := exec.Command(command, args...)
+// This function runs a command in the shell and captures its output.
+// It takes 2 parameters:
+// 1. command: the command to run in the shell
+// 2. suppressOutput: whether to print the output of the command to the console
+// It takes any number of additional arguments, which are passed to the command as arguments.
+// It returns a string containing the output of the command, and an error if there was one.
+// If an error occurs, the error is printed to the console unless suppressOutput is true.
+func ExecShell(command string, suppressOutput bool, args ...string) (string, error) {
+    // Create a new command to run in the shell
+    cmd := exec.Command(command, args...)
 
-	// Run the command and capture its output and any errors
-	output, err := cmd.CombinedOutput()
+    // Run the command and capture its output
+    output, err := cmd.CombinedOutput()
+    // Remove any empty or blank lines from the output
+    strippedOutput := Strip(string(output))
 
-	// Check if there was an error
-	if err != nil {
-		// If suppressOutput is false, print the command output even if there was an error
-		if !suppressOutput {
-			// Print the command output and any error message
-			fmt.Println("Command output:", Strip(string(output)))
-		}
+    // If there was an error running the command, handle it
+    if err != nil {
+        // If output should not be suppressed, print the output
+        if !suppressOutput {
+            fmt.Println("Command output:", strippedOutput)
+        }
+        // Print the error to the console
+        fmt.Println("Error:", err)
+        // Return an empty string and the error
+        return "", err
+    }
 
-		// Print the error message
-		fmt.Println("Error:", err)
+    // If output should not be suppressed, print the output
+    if !suppressOutput {
+        fmt.Println(strippedOutput)
+    }
 
-		// Return to prevent further execution of the function
-		return
-	}
-
-	// If there was no error and suppressOutput is false, print the command output
-	if !suppressOutput {
-		// Print the command output, stripped of any blank or empty lines
-		fmt.Println(Strip(string(output)))
-	}
+    // Return the output and a nil error
+    return strippedOutput, nil
 }
+
 
 // This function checks if a file exists in the file system.
 // It takes 1 parameter:
