@@ -118,12 +118,18 @@ func Join(parts ...string) string {
     return filepath.Join(parts...)
 }
 
-// ReadFile reads the contents of a file and returns it as a string.
-// Returns an error if the file cannot be read.
-func Read(filePath string) (string, error) {
+// Reads the contents of a file and optionally strips it.
+// If `strip` is true, the output is processed with es.Strip().
+func Read(filePath string, strip bool) (string, error) {
     data, err := os.ReadFile(filePath)
     if err != nil {
         return "", err
     }
-    return string(data), nil
+
+    result := string(data)
+    if strip {
+        result = Strip(result)
+    }
+
+    return result, nil
 }
