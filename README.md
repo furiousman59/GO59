@@ -31,7 +31,10 @@ es.FileExists(string)
 es.StringRNG(int)
 
 // Join paths together
-es.Join("path", "path2, "path_etc")
+es.Join("path", "path2", "path_etc")
+
+// Read text file
+es.Read("path")
 ```
 
 ### Thanks readme.so for this readme!!
