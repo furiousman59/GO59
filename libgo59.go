@@ -5,6 +5,8 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"math/rand"
+  "time"
 )
 
 // This function takes a string of text as input and returns a new string with any blank or empty lines removed.
@@ -74,4 +76,37 @@ func FileExists(filename string) bool {
     // Otherwise, the function returns true
     _, err := os.Stat(filename)
     return !os.IsNotExist(err)
+}
+
+// This function generates a random string of a given length.
+// It takes 1 parameter:
+// 1. length: the length of the string to generate
+// It returns a string of the given length, consisting of random characters.
+func StringRNG(length int) string {
+    // The characters that can be used in the generated string
+    // This string includes all alphanumeric characters, both uppercase and lowercase
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+    // Seed the random number generator with the current time
+    // This is necessary because the random number generator is not truly random,
+    // but rather a pseudorandom number generator that uses a seed value
+    // to generate a sequence of numbers
+    rand.Seed(time.Now().UnixNano())
+
+    // Create a byte array of the given length
+    // This array will be used to store the generated string
+    result := make([]byte, length)
+
+    // Iterate over the array and fill it with random characters
+    // The characters are chosen from the charset string
+    for i := range result {
+        // Get a random index from the charset string
+        // This index is used to select a character from the charset
+        // The character is then assigned to the current index in the result array
+        result[i] = charset[rand.Intn(len(charset))]
+    }
+
+    // Convert the byte array to a string and return it
+    // This is the final generated string
+    return string(result)
 }
