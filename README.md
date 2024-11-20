@@ -30,6 +30,9 @@ es.Strip(string)
 
 // Check if file or path exist, returns bool 
 es.FileExists(string)
+
+// Generate random (int) long string
+es.StringRNG(int)
 ```
 
 ### Thanks readme.so for this readme!!
